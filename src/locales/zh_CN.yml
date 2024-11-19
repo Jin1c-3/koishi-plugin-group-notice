@@ -1,0 +1,6 @@
+commands:
+  group-notice:
+    description: 发群公告，可多群一起发
+    messages:
+      what-to-add: 请发送要发送的公告
+      type-warn: 当前仅支持纯文本公告。
