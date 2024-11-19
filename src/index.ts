@@ -27,7 +27,7 @@ export function apply(ctx: Context, { interval }: Config) {
       if (groupIds.length == 0) {
         groupIds.push(session.guildId);
       }
-      session.send(session.text(".what-to-add"));
+      await session.send(session.text(".what-to-add"));
       const reply = h.parse(await session.prompt());
       let contents = [];
       let alert_flag = false;
@@ -41,9 +41,11 @@ export function apply(ctx: Context, { interval }: Config) {
       if (alert_flag) {
         session.send(session.text(".type-warn"));
       }
-      for (let groupId of groupIds) {
-        await session.onebot.sendGroupNotice(groupId, contents.join("\n"));
-        await sleep(interval * 1000);
+      for (let i = 0; i < groupIds.length; i++) {
+        if (i) {
+          await sleep(interval * 1000);
+        }
+        await session.onebot.sendGroupNotice(groupIds[i], contents.join("\n"));
       }
     });
 }
