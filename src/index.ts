@@ -18,7 +18,7 @@ export const Config: Schema<Config> = Schema.object({
 });
 
 export function apply(ctx: Context, { interval }: Config) {
-  ctx = ctx.platform("onebot").guild();
+  ctx = ctx.platform("onebot");
   ctx.i18n.define("zh-CN", require("./locales/zh_CN"));
   ctx
     .command("group-notice [...groupIds:string]", "发群公告", { authority: 3 })
@@ -38,8 +38,13 @@ export function apply(ctx: Context, { interval }: Config) {
           alert_flag = true;
         }
       }
+      let content = contents.join("\n");
       if (alert_flag) {
-        session.send(session.text(".type-warn"));
+        await session.send(session.text(".type-warn"));
+      }
+      if (content.length > 600 || content.length < 1) {
+        await session.send(session.text(".length-warn", [content.length]));
+        return;
       }
       for (let groupId of groupIds) {
         await session.onebot.sendGroupNotice(groupId, contents.join("\n"));

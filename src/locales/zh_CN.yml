@@ -4,3 +4,4 @@ commands:
     messages:
       what-to-add: 请发送要发送的公告
       type-warn: 当前仅支持纯文本公告。
+      length-warn: 公告内容过长，当前为 {0} 字，请删减到 600 字以内
