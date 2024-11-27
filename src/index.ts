@@ -21,17 +21,21 @@ export function apply(ctx: Context, { interval }: Config) {
   ctx = ctx.platform("onebot");
   ctx.i18n.define("zh-CN", require("./locales/zh_CN"));
   ctx
-    .command("group-notice [...groupIds:string]", "发群公告", { authority: 3 })
+    .command("group-notice [...groupIds:string]", "", { authority: 3 })
     .alias("发公告")
     .action(async ({ session }, ...groupIds) => {
       if (groupIds.length == 0) {
         groupIds.push(session.guildId);
       }
       await session.send(session.text(".what-to-add"));
-      const reply = h.parse(await session.prompt());
+      const reply = await session.prompt();
+      const h_reply = h.parse(reply);
+      if (reply.includes("取消发送公告")) {
+        return session.text(".cancelled");
+      }
       let contents = [];
       let alert_flag = false;
-      for (let e of reply) {
+      for (let e of h_reply) {
         if (e.type === "text") {
           contents.push(e);
         } else {

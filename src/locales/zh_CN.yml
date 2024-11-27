@@ -2,6 +2,7 @@ commands:
   group-notice:
     description: 发群公告，可多群一起发
     messages:
-      what-to-add: 请发送要发送的公告
+      what-to-add: 请发送要发送的公告，发送 取消发送公告 可停止本次操作
       type-warn: 当前仅支持纯文本公告。
       length-warn: 公告内容过长，当前为 {0} 字，请删减到 600 字以内
+      cancelled: 指令已取消
