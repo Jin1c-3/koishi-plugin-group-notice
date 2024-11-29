@@ -1,7 +1,7 @@
 {
   "name": "koishi-plugin-group-notice",
   "description": "让机器人在onebot平台发公告吧",
-  "version": "0.0.4",
+  "version": "0.0.6",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "files": [
